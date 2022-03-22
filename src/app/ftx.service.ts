@@ -1,43 +1,38 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParamsOptions} from "@angular/common/http";
-import { Observable, throwError } from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import {environment} from "../environments/environment";
 
-//Documentation FTX
-//list des NFTs: https://docs.ftx.com/?javascript#list-nfts
-
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*');
-
+export interface NFT {
+  id: number,
+  name: string,
+  description: string,
+  issuer: string,
+  collection: string,
+  series: string,
+  solMintAddress: string,
+  ethContractAddress: string,
+  imageUrl: string,
+  videoUrl: string,
+  attributes: string,
+  redeemable: boolean,
+  redeemed: boolean,
+  offerPrice: number,
+  auction: {
+    bestBid: number,
+    minNextBid: number,
+    endTime: string,
+    bids: number
+  }
+}
 
 export interface NFT_LIST {
-  "success": boolean,
-  "result": [
-    {
-      "id": number,
-      "name": string,
-      "description": string,
-      "issuer": string,
-      "collection": string,
-      "series": string,
-      "solMintAddress": string,
-      "ethContractAddress": string,
-      "imageUrl": string,
-      "videoUrl": string,
-      "attributes": string,
-      "redeemable": boolean,
-      "redeemed": boolean,
-      "offerPrice": number,
-      "auction": {
-        "bestBid": number,
-        "minNextBid": number,
-        "endTime": string,
-        "bids": number
-      }
-    }
-  ]
+  success: boolean,
+  result: NFT[]
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,14 +40,13 @@ export interface NFT_LIST {
 export class FtxService {
 
   lst: NFT_LIST | undefined;
-  api_key="d87Qu7i0znABaUs0mbMLM_LS2gPntUFEhnO9HbE8"
-  api_secret="u4jGfTNN17xFb5fA2XFwE5rNWkEV0w2f9sBj2Jxd"
+  domain=environment.server+"/api/"
 
   constructor(private http: HttpClient) { }
 
-  getNfts() {
+  getNfts(collections:string,limit=100) {
     //voir https://angular.io/gui de/http
-    return this.http.get<NFT_LIST>("https://ftx.com/api/nft/nfts",{headers:headers})
+    return this.http.get<NFT_LIST>(this.domain+"nfts/?collections="+collections+"&limit="+limit)
       .pipe(
         retry(3),
         catchError(this.handleError)

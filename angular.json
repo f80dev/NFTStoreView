@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "8694d074-fc6c-40d4-a96b-5d165096666b"
+    "analytics": "cfadb6ae-3a6d-4e3c-9f08-bd9715cdab9b"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -30,7 +30,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -77,9 +76,6 @@
             "development": {
               "browserTarget": "NFTStoreView:build:development"
             }
-          },
-          "options":{
-            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },

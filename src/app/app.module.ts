@@ -8,7 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
-  { path: 'view', component: ViewComponent }
+  { path: 'view', component: ViewComponent },
+  { path: '**', component:ViewComponent }
 ];
 
 @NgModule({

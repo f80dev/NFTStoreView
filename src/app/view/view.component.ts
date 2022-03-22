@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FtxService, NFT_LIST} from "../ftx.service";
+import {FtxService, NFT_LIST,NFT} from "../ftx.service";
+import {ActivatedRoute} from "@angular/router";
 
 
 
@@ -10,13 +11,16 @@ import {FtxService, NFT_LIST} from "../ftx.service";
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  private nfts:any;
+  nfts:NFT_LIST={success:false,result:[]};
 
-  constructor(private ftx:FtxService) { }
+  constructor(private ftx:FtxService,private routes:ActivatedRoute) { }
 
+  //http://localhost:4200/view?collections=Coachella%20Keys&limit=100
   ngOnInit(): void {
-    this.ftx.getNfts().subscribe((data:any) => {
-      this.nfts=data.result;
+    let collections:string=this.routes.snapshot.queryParamMap.get("collections") || "";
+    let limit:number=Number(this.routes.snapshot.queryParamMap.get("limit")) || 100;
+    this.ftx.getNfts(collections,limit).subscribe((data:NFT_LIST) => {
+      this.nfts=data;
     })
   }
 

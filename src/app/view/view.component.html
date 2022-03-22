@@ -1,1 +1,12 @@
-<p>view works!</p>
+<div *ngFor="let nft of nfts.result" style="display: inline-block;width:300px;margin: 5px;text-align: center;font-size: small;">
+  <table style="text-align: left;">
+    <tr style="width: 100%;vertical-align: top;">
+      <td><img [src]="nft.imageUrl" style="width: 150px;"></td>
+      <td>
+        <strong>{{nft.name}}</strong><br><br>
+        {{nft.offerPrice / 0.8}}€<br>
+        <a [href]="'https://ftx.us/nfts/token/'+nft.id">Acheter</a>
+      </td>
+    </tr>
+  </table>
+</div>

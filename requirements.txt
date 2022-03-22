@@ -1,0 +1,16 @@
+flask==2.0.3
+flask-cors
+PyYAML
+requests
+apscheduler
+pymongo
+flask-socketio==4.3.2
+aes-everywhere
+flask-excel
+pandas
+Flask-Caching
+requests-cache
+pyopenssl
+time
+hmac
+
