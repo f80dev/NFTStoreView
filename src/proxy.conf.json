@@ -1,0 +1,7 @@
+{
+  "ftx.com/api/*": {
+    "target": "https://ftx.com",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
